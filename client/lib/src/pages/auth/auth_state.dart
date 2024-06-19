@@ -30,9 +30,6 @@ class _AuthStateState extends State<AuthState> {
         }
 
         return HomePage(
-          onUserEdit: () {
-            setState(() {});
-          },
           onLogout: () {
             setState(() {});
             Methods.showSnackBar(context, content: "Logout Success");

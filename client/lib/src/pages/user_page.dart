@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:client/src/helpers/database_helper.dart';
+import 'package:client/src/controllers/user_controller.dart';
 import 'package:client/src/helpers/user_helper.dart';
 import 'package:client/src/helpers/image_picker_helper.dart';
 import 'package:client/src/models/image_model.dart';
@@ -29,8 +29,9 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
   late Future getUser;
-
   File? image;
+
+  final userGet = Get.put(UserController());
 
   @override
   void initState() {
@@ -70,21 +71,19 @@ class _UserPageState extends State<UserPage> {
       );
 
       if (updateUser['status'] == "SUCCESS") {
-        await DatabaseHelper.updateUser(
-          UserModel(
-            id: userModel.id,
-            username: userModel.username,
-            password: userModel.password,
-            image: uploadedImage.path,
-            createdAt: userModel.createdAt,
-            updatedAt: userModel.updatedAt,
-          ),
-        ).then((value) {
-          Methods.showSnackBar(context, content: "Profile Picture updated");
-        });
-      }
+        userGet.setCurrentUser(UserModel(
+          id: userModel.id,
+          username: userModel.username,
+          password: userModel.password,
+          image: uploadedImage.path,
+          createdAt: userModel.createdAt,
+          updatedAt: userModel.updatedAt,
+        ));
 
-      widget.onEdit!();
+        if (mounted) {
+          Methods.showSnackBar(context, content: "Profile Picture updated");
+        }
+      }
     }
   }
 
@@ -119,7 +118,8 @@ class _UserPageState extends State<UserPage> {
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: Colors.white,

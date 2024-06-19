@@ -26,8 +26,6 @@ class ProductHelper {
         )
         .then((value) => value.body));
 
-    print(response);
-
     return response;
   }
 

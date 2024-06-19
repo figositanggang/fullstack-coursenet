@@ -1,4 +1,3 @@
-
 import 'package:client/src/helpers/category_helper.dart';
 import 'package:client/src/helpers/product_helper.dart';
 import 'package:client/src/models/category_model.dart';
@@ -133,7 +132,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Add Product"),
+            title: const Text("Update Product"),
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),

@@ -1,11 +1,11 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, avoid_print
 
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:client/src/controllers/user_controller.dart';
-import 'package:client/src/helpers/database_helper.dart';
 import 'package:client/src/helpers/token_helper.dart';
+import 'package:client/src/models/user_model.dart';
 import 'package:client/src/utils/constants.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -21,13 +21,11 @@ class UserHelper {
     }).then((value) => value.body));
 
     if (response != null) {
-      final user = await DatabaseHelper.getUser();
-
-      final checkUser = await getUser(user!.id);
+      final checkUser = await getUser(response["body"]["id"]);
 
       if (checkUser['status'] == "SUCCESS") {
         final userGet = Get.put(UserController());
-        userGet.setCurrentUser(user);
+        userGet.setCurrentUser(UserModel.fromMap(checkUser["body"]));
       }
     }
 

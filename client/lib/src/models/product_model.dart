@@ -27,7 +27,7 @@ class ProductModel {
       name: map["name"],
       quantity: map["qty"],
       categoryId: map["categoryId"],
-      image: map["image"].replaceAll("uploads/", ""),
+      image: map["image"],
       createdAt: map["createdAt"],
       updatedAt: map["updatedAt"],
       createdBy: map["createdBy"],
